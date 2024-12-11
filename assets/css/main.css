@@ -19968,6 +19968,13 @@ START: Slider CSS
 
 
 
+.error-message {
+  color: red;
+  font-size: 12px;
+  display: none; /* Hide error messages by default */
+  margin-top: 5px; /* Space between input field and error message */
+}
+
 
 
 

@@ -769,26 +769,94 @@
         lastNobullet();
     });
 
-    $('#contact-us__form').submit(function(event) {
-        event.preventDefault();
-        var form = $(this);
-        $('.loading-form').show();
 
-        setTimeout(function() { 
-            $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: form.serialize()
-            }).done(function(data) {
-                $('.loading-form').hide();
-                $('.contact-us__form').append('<p class="success-message mt-3 mb-0">Your message has been sent successfully.</p>');
-            }).fail(function(data) {
-                $('.loading-form').hide();
-                $('.contact-us__form').append('<p class="error-message mt-3 mb-0">Something went wrong. Please try again later.</p>');
 
-            });
-        }, 1000);
-      });
+
+
+    // Ensure EmailJS is initialized with the correct user ID
+emailjs.init("q-41bTumZr2qyVFCE");  // Replace with your actual EmailJS user ID
+
+$('#contact-us__form').submit(function (event) {
+    event.preventDefault();  // Prevent form from submitting normally
+
+    // Show loading indicator (if you have one)
+    $('.loading-form').show();
+
+    // Clear any previous error messages
+    $('#email-error, #phone-error, #name-error, #message-error').text('').hide();
+
+    var formData = {
+        name: $('#name').val().trim(),
+        email: $('#email').val().trim(),
+        phone: $('#phone').val().trim(),
+        message: $('#textarea').val().trim()
+    };
+
+    // Validate form data
+    let isValid = true;
+
+    // Validate Name
+    if (!formData.name || formData.name.length < 2) {
+        isValid = false;
+        $('#name-error').text('Please enter your name (minimum 2 characters).').show();
+    }
+
+    // Validate Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+        isValid = false;
+        $('#email-error').text('Please enter a valid email address.').show();
+    }
+
+    // Validate Phone
+    const phoneRegex = /^[0-9]{10,15}$/;
+    if (!formData.phone || !phoneRegex.test(formData.phone)) {
+        isValid = false;
+        $('#phone-error').text('Please enter a valid phone number').show();
+    }
+
+    // Validate Message
+    if (!formData.message || formData.message.length < 10) {
+        isValid = false;
+        $('#message-error').text('Please enter a message (minimum 10 characters).').show();
+    }
+
+    // If validation fails, stop the form submission
+    if (!isValid) {
+        $('.loading-form').hide();  // Hide the loading spinner
+        return;  // Stop form submission
+    }
+
+    // If everything is valid, proceed to send email
+    console.log("Form is valid. Proceeding to send email...");
+
+    // Send the email using EmailJS
+    emailjs.send("service_87ja20r", "template_6bj30na", formData)
+        .then(function(response) {
+            console.log("Email sent successfully", response);
+            $('.loading-form').hide();  // Hide loading spinner
+
+            // Append success message to form
+            $('#contact-us__form').append('<p class="success-message mt-3 mb-0" style="color: green;">Your message has been sent successfully.</p>');
+            $('#contact-us__form')[0].reset();
+        }, function(error) {
+            console.log("Error sending email", error);
+            $('.loading-form').hide();  // Hide loading spinner
+
+            // Append error message to form
+            $('#contact-us__form').append('<p class="error-message mt-3 mb-0" style="color: red;">Something went wrong. Please try again later.</p>');
+        });
+});
+
+
+
+
+
+
+    
+    
+    
+
 
     $('#showlogin').on('click', function () {
         $('#checkout-login').slideToggle(400);
