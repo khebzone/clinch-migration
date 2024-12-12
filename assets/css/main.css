@@ -1923,17 +1923,22 @@ textarea {
   -o-transform: translateX(0);
   transform: translateX(0);
 }
+
+.offcanvas__logo {
+  background-color: white; /* Set the background color to white */
+}
+
 .offcanvas__logo a img {
-  width: 160px;
+  width: 250px;
 }
 @media (max-width: 575px) {
   .offcanvas__logo a img {
-    width: 150px;
+    width: 220px;
   }
 }
 @media (max-width: 575px) {
   .offcanvas__logo a img {
-    width: 130px;
+    width: 220px;
   }
 }
 .offcanvas__content {
@@ -19975,8 +19980,18 @@ START: Slider CSS
   margin-top: 5px; /* Space between input field and error message */
 }
 
+.logo img {
+  width: 320px; /* Adjust this value as needed */
+  height: auto; /* Maintains aspect ratio */
+}
 
 
+@media (max-width: 600px) { /* Target phones and small screens */
+  .logo img {
+      width: 220px; /* Adjust this size for phones */
+      height: auto; /* Maintain aspect ratio */
+  }
+}
 
 
 

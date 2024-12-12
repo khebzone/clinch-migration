@@ -773,9 +773,6 @@
 
 
 
-    // Ensure EmailJS is initialized with the correct user ID
-emailjs.init("q-41bTumZr2qyVFCE");  // Replace with your actual EmailJS user ID
-
 $('#contact-us__form').submit(function (event) {
     event.preventDefault();  // Prevent form from submitting normally
 
@@ -992,7 +989,7 @@ $(document).ready(function() {
 
 
         // Define the phone number and the message to send on WhatsApp
-        var phoneNumber = '9384745303';  // Replace with the phone number (with country code) of the recipient
+        var phoneNumber = '9176655909';  // Replace with the phone number (with country code) of the recipient
         var message = `Hi, I want assistance for a trip from ${fromValue} to ${toValue}.`;
 
         // Create a WhatsApp URL
